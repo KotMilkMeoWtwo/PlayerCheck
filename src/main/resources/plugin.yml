@@ -4,3 +4,7 @@ main: playercheck.ru.meowland.player.check.PlayerCheck
 api-version: 1.19
 authors: [ KotMilkMeoW ]
 description: meow
+
+commands:
+  callforcheck:
+    permission: playercheck.callforcheck

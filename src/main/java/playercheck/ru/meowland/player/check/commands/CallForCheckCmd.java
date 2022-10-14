@@ -1,6 +1,5 @@
 package playercheck.ru.meowland.player.check.commands;
 
-import com.destroystokyo.paper.event.player.PlayerSetSpawnEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -12,11 +11,11 @@ import playercheck.ru.meowland.player.check.PlayerCheck;
 
 import java.util.Objects;
 
-public class CallOnCheckCmd implements CommandExecutor {
+public class CallForCheckCmd implements CommandExecutor {
 
     PlayerCheck plugin;
 
-    public CallOnCheckCmd(PlayerCheck nya){
+    public CallForCheckCmd(PlayerCheck nya){
         this.plugin = nya;
     }
     @Override
@@ -24,7 +23,7 @@ public class CallOnCheckCmd implements CommandExecutor {
 
         Player p = (Player) sender;
 
-        if(command.getName().equalsIgnoreCase("calloncheck")){
+        if(command.getName().equalsIgnoreCase("callforcheck")){
             Player p1 =  plugin.getServer().getPlayer(args[0]);
             for(Player player : Bukkit.getOnlinePlayers()){
                 player.sendMessage(p1.getName() + ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(plugin.getConfig().getString("callforcheck"))));
