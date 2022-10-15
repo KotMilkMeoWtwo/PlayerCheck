@@ -1,5 +1,7 @@
 package playercheck.ru.meowland.player.check.commands;
 
+
+import com.destroystokyo.paper.Title;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -20,7 +22,7 @@ public class CallForCheckCmd implements CommandExecutor, Listener {
 
     PlayerCheck plugin;
     private Boolean meow;
-    private Player player;
+    private Player player1;
     public CallForCheckCmd(PlayerCheck nya){
         this.plugin = nya;
     }
@@ -30,7 +32,10 @@ public class CallForCheckCmd implements CommandExecutor, Listener {
         Player p = (Player) sender;
         if(command.getName().equalsIgnoreCase("callforcheck")){
             Player p1 =  plugin.getServer().getPlayer(args[0]);
-            player = p1;
+            player1 = p1;
+            Title title = new Title(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("titlerequests")),
+                    ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("subtitlerequests")));
+            p1.sendTitle(title);
             meow = true;
             for(Player player : Bukkit.getOnlinePlayers()){
                 player.sendMessage(p1.getName() + ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(plugin.getConfig().getString("callforcheck"))));
@@ -45,7 +50,7 @@ public class CallForCheckCmd implements CommandExecutor, Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void leaveEvent(PlayerQuitEvent e){
         Player p = e.getPlayer();
-        if(p == player && meow){
+        if(p == player1 && meow){
             p.banPlayerFull("Leave in check time");
         }
 
