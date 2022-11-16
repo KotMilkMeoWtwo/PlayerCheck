@@ -1,4 +1,4 @@
-package playercheck.ru.meowland.player.check.commands;
+package ru.meowland.commands;
 
 
 import com.destroystokyo.paper.Title;
@@ -13,17 +13,16 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.jetbrains.annotations.NotNull;
-import playercheck.ru.meowland.player.check.PlayerCheck;
+import ru.meowland.PlayerCheck;
 
 import java.util.Objects;
-import java.util.PriorityQueue;
 
-public class CallForCheckCmd implements CommandExecutor, Listener {
+public class CheckCmds implements CommandExecutor, Listener {
 
     PlayerCheck plugin;
     private Boolean meow;
     private Player player1;
-    public CallForCheckCmd(PlayerCheck nya){
+    public CheckCmds(PlayerCheck nya){
         this.plugin = nya;
     }
     @Override
@@ -42,6 +41,10 @@ public class CallForCheckCmd implements CommandExecutor, Listener {
                 player.sendMessage(p1.getName() + ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(plugin.getConfig().getString("callforcheck"))));
             }
             return true;
+        }
+
+        if(command.getName().equalsIgnoreCase("check")){
+
         }
 
         return false;
