@@ -1,6 +1,6 @@
 name: PlayerCheck
 version: '${version}'
-main: playercheck.ru.meowland.player.check.PlayerCheck
+main: ru.meowland.PlayerCheck
 api-version: 1.19
 authors: [ KotMilkMeoW ]
 description: meow
