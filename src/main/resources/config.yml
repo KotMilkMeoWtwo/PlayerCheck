@@ -6,6 +6,6 @@ banreson: &2Ливнул во время проверки
 
 successful: &lУспешно
 
-
+//НЕ ТРОГАТЬ/don't touch 
 adminName: null
 playerName: null
