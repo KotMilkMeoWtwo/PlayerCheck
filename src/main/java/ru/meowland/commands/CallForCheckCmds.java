@@ -7,14 +7,10 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerQuitEvent;
 import org.jetbrains.annotations.NotNull;
 import ru.meowland.PlayerCheck;
 
@@ -39,7 +35,7 @@ public class CallForCheckCmds implements CommandExecutor, Listener {
         if(command.getName().equalsIgnoreCase("callforcheck")){
             Player p1 =  plugin.getServer().getPlayer(args[0]);
 
-            configuration.set("playerName", p1.getName());
+            configuration.set("playerName", Objects.requireNonNull(p1).getName());
             configuration.set("adminName", p.getName());
             try {
                 configuration.save(file);
@@ -55,9 +51,6 @@ public class CallForCheckCmds implements CommandExecutor, Listener {
             }
             return true;
         }
-
-
-
         return false;
     }
 

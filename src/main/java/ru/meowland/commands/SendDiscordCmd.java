@@ -1,6 +1,8 @@
 package ru.meowland.commands;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.Color;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -28,7 +30,7 @@ public class SendDiscordCmd implements CommandExecutor, Listener {
         if(command.getName().equalsIgnoreCase("senddiscord")){
 
             Objects.requireNonNull(adm).sendMessage(player.getName() + " дискорд: " + args[0]);
-            player.sendMessage("successful");
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(configuration.get("successful")).toString()));
 
             return true;
         }
@@ -39,10 +41,9 @@ public class SendDiscordCmd implements CommandExecutor, Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void leaveEvent(PlayerQuitEvent e){
         Player p = e.getPlayer();
-        /*
-        if(p == player1 && meow){
-            p.banPlayerFull("Leave in check time");
+        Player p1 = Bukkit.getPlayer(Objects.requireNonNull(configuration.get("playerName")).toString());
+        if(p == p1){
+            p.banPlayerFull(ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(configuration.get("banreson")).toString()));
         }
-         */
     }
 }

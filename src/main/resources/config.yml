@@ -1,8 +1,10 @@
 callforcheck: &lвызван на проверку. У него есть 10 минут, Чтобы выполнить указания
 
 titlerequests: &2Вы вызваны на проверку
-subtitlerequests: &3Напишите свой дискорд коммандой /check
+subtitlerequests: &3Напишите свой дискорд коммандой check
+banreson: &2Ливнул во время проверки
 
+successful: &lУспешно
 
 
 adminName: null
