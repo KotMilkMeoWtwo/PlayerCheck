@@ -1,5 +1,6 @@
 package ru.meowland.commands;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -7,6 +8,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -21,8 +24,12 @@ public class CancelCheckCmd implements CommandExecutor {
         FileConfiguration configuration = YamlConfiguration.loadConfiguration(file);
 
         Player player = (Player) sender;
-
+        Player player1 = Bukkit.getPlayer(Objects.requireNonNull(configuration.get("playerName")).toString());
         if(command.getName().equalsIgnoreCase("canselcheck")){
+
+            Objects.requireNonNull(player1).removePotionEffect(PotionEffectType.SLOW);
+            player1.removePotionEffect(PotionEffectType.SLOW_DIGGING);
+
             configuration.set("adminName", "nul");
             configuration.set("playerName", "null");
             try {
