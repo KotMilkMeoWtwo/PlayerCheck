@@ -28,7 +28,7 @@ public class CallForCheckCmds implements CommandExecutor, Listener {
     PlayerCheck plugin;
 
     public CallForCheckCmds(PlayerCheck nya){
-        this.plugin = nya;
+        plugin = nya;
     }
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
@@ -50,6 +50,7 @@ public class CallForCheckCmds implements CommandExecutor, Listener {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+            plugin.reloadConfig();
             Title title = new Title(ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(plugin.getConfig().getString("titlerequests"))),
                     ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(plugin.getConfig().getString("subtitlerequests"))));
             Objects.requireNonNull(p1).sendTitle(title);

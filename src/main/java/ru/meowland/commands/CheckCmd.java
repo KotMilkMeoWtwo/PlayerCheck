@@ -2,34 +2,50 @@ package ru.meowland.commands;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Color;
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
+import ru.meowland.PlayerCheck;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Objects;
 
-public class SendDiscordCmd implements CommandExecutor, Listener {
+public class CheckCmd implements CommandExecutor {
 
     File file = new File("plugins/PlayerCheck/config.yml");
     FileConfiguration configuration = YamlConfiguration.loadConfiguration(file);
+    Plugin plugin;
+    public CheckCmd(PlayerCheck meow){
+        plugin = meow;
+    }
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-
+        try {
+            configuration.load(file);
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        } catch (InvalidConfigurationException ex) {
+            throw new RuntimeException(ex);
+        }
         Player player = (Player) sender;
+        plugin.reloadConfig();
         Player adm = Bukkit.getPlayer(String.valueOf(Objects.requireNonNull(configuration.get("adminName"))));
-        if(command.getName().equalsIgnoreCase("senddiscord")){
+        if(command.getName().equalsIgnoreCase("check")){
 
-            Objects.requireNonNull(adm).sendMessage(player.getName() + " дискорд: " + args[0]);
+            adm.sendMessage(player.getName() + " дискорд: " + args[1]);
             player.sendMessage(ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(configuration.get("successful")).toString()));
 
             return true;
@@ -38,12 +54,5 @@ public class SendDiscordCmd implements CommandExecutor, Listener {
         return false;
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST)
-    public void leaveEvent(PlayerQuitEvent e){
-        Player p = e.getPlayer();
-        Player p1 = Bukkit.getPlayer(Objects.requireNonNull(configuration.get("playerName")).toString());
-        if(p == p1){
-            p.banPlayerFull(ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(configuration.get("banreson")).toString()));
-        }
-    }
+
 }
