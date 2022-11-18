@@ -34,12 +34,15 @@ public class CancelCheckCmd implements CommandExecutor {
         if(command.getName().equalsIgnoreCase("canselcheck")){
             try {
                 configuration.load(file);
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            } catch (InvalidConfigurationException ex) {
+            } catch (IOException | InvalidConfigurationException ex) {
                 throw new RuntimeException(ex);
             }
             plugin.reloadConfig();
+            if(configuration.get("playerName").equals("none")){
+                player.sendMessage("проверка не идёт");
+                return true;
+            }
+
             Player player1 = Bukkit.getPlayer(Objects.requireNonNull(configuration.get("playerName")).toString());
 
             player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&lУспешно"));
