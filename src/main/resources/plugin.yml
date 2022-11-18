@@ -8,7 +8,9 @@ description: meow
 commands:
   callforcheck:
     permission: playercheck.callforcheck
+
   check:
     permission: playercheck.check
+    usage: <Discord>
   canselcheck:
     permission: playercheck.canselcheck

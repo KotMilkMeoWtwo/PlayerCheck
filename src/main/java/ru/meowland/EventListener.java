@@ -31,11 +31,11 @@ public class EventListener implements Listener {
         Player p = e.getPlayer();
         try {
             configuration.load(file);
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        } catch (InvalidConfigurationException ex) {
+        } catch (IOException | InvalidConfigurationException ex) {
             throw new RuntimeException(ex);
         }
+        if(configuration.get("playerName").toString().equals("none"))
+            return;
         Player p1 = Bukkit.getPlayer(Objects.requireNonNull(configuration.get("playerName")).toString());
         p.sendMessage(Objects.requireNonNull(p1).getName());
         if(p.getName().equals(Objects.requireNonNull(p1).getName())){
@@ -45,14 +45,14 @@ public class EventListener implements Listener {
 
     @EventHandler
     public void PlayerMove(PlayerMoveEvent event) {
+        Player p = event.getPlayer();
         try {
             configuration.load(file);
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        } catch (InvalidConfigurationException ex) {
+        } catch (IOException | InvalidConfigurationException ex) {
             throw new RuntimeException(ex);
         }
-        Player p = event.getPlayer();
+        if(configuration.get("playerName").toString().equals("none"))
+            return;
         Player p1 = Bukkit.getPlayer(configuration.get("playerName").toString());
         Location q = event.getFrom();
         Location w = event.getTo();

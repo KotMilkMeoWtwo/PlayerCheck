@@ -35,18 +35,22 @@ public class CheckCmd implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         try {
             configuration.load(file);
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        } catch (InvalidConfigurationException ex) {
+        } catch (IOException | InvalidConfigurationException ex) {
             throw new RuntimeException(ex);
         }
         Player player = (Player) sender;
         plugin.reloadConfig();
-        Player adm = Bukkit.getPlayer(String.valueOf(Objects.requireNonNull(configuration.get("adminName"))));
+
+        if(configuration.get("adminName").equals("none")){
+            player.sendMessage("хрень какая то");
+
+            return true;
+        }
+        Player adm = Bukkit.getPlayer(configuration.get("adminName").toString());
         if(command.getName().equalsIgnoreCase("check")){
 
-            adm.sendMessage(player.getName() + " дискорд: " + args[1]);
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(configuration.get("successful")).toString()));
+            adm.sendMessage(player.getName() + " дискорд: " + args[0]);
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&lУспешно"));
 
             return true;
         }
