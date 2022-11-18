@@ -14,8 +14,8 @@ this plugin to call a player to check in discord
 ```YAML
   callforcheck:
     permission: playercheck.callforcheck
-  senddiscord:
-    permission: playercheck.senddiscord
+  check:
+    permission: playercheck.check
   canselcheck:
     permission: playercheck.canselcheck
 ```
